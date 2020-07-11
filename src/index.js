@@ -1,6 +1,8 @@
 const express = require('express');
+const { request, response } = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
+let message = '';
 
 app.get('/',(request, response)=>{
     response.send('Application is running!');
@@ -13,6 +15,32 @@ app.get('/memory_usage',(request, response)=>{
     response.json({
         memoryUsage: memoryUsageString
     })
+});
+
+app.get('/message',(request, response)=>{
+    if(!message){
+        const statusCode = 419;
+        response
+        .status(statusCode)
+        .json({
+            statusCode
+        });
+        return;
+    }
+    response.json({
+        message
+    })
+});
+
+app.post('/message/:str', (request, response)=>{
+    const { str } = request.params;
+    message = str.toString();
+    const statusCode = 204;
+    response
+    .status(statusCode)
+    .json({
+        statusCode
+    });
 });
 
 app.listen(port, (error)=>{
