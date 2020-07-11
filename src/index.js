@@ -3,7 +3,12 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.get('/',(request, response)=>{
-    response.send('Application is running!');
+    const statusCode = 200;
+    response
+    .status(statusCode)
+    .json({
+        statusCode
+    });
 });
 
 app.get('/memory_usage',(request, response)=>{
