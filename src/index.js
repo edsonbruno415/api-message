@@ -16,7 +16,11 @@ app.get('/memory_usage',(request, response)=>{
     const memoryUsage = Math.round((heapUsed / 1024 / 1024)*100) / 100;
     const memoryUsageString = `${memoryUsage} MB`;
     response.json({
-        memoryUsage: memoryUsageString
+        memoryUsage: {
+            used: memoryUsageString,
+            bytes: heapUsed,
+            megaBytes: memoryUsage
+        }
     })
 });
 
