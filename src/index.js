@@ -5,7 +5,12 @@ const port = process.env.PORT || 3000;
 let message = '';
 
 app.get('/',(request, response)=>{
-    response.send('Application is running!');
+    const statusCode = 200;
+    response
+    .status(statusCode)
+    .json({
+        statusCode
+    });
 });
 
 app.get('/memory_usage',(request, response)=>{
@@ -13,7 +18,11 @@ app.get('/memory_usage',(request, response)=>{
     const memoryUsage = Math.round((heapUsed / 1024 / 1024)*100) / 100;
     const memoryUsageString = `${memoryUsage} MB`;
     response.json({
-        memoryUsage: memoryUsageString
+        memoryUsage: {
+            used: memoryUsageString,
+            bytes: heapUsed,
+            megaBytes: memoryUsage
+        }
     })
 });
 
