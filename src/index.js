@@ -6,6 +6,15 @@ app.get('/',(request, response)=>{
     response.send('Application is running!');
 });
 
+app.get('/memory_usage',(request, response)=>{
+    const { heapUsed } = process.memoryUsage();
+    const memoryUsage = Math.round((heapUsed / 1024 / 1024)*100) / 100;
+    const memoryUsageString = `${memoryUsage} MB`;
+    response.json({
+        memoryUsage: memoryUsageString
+    })
+});
+
 app.listen(port, (error)=>{
     if(error){
         throw Error('Error internal server! ', error);
