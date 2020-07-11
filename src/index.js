@@ -1,15 +1,19 @@
 const express = require('express');
-const { request, response } = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 const path = require('path');
 const util = require('util');
-const { readFile, writeFile } = require('fs');
+const { readFile, writeFile, writeFileSync, existsSync } = require('fs');
 const readFileAsync = util.promisify(readFile);
 const writeFileAsync = util.promisify(writeFile);
 
 const FILENAME = 'message.txt';
 let message;
+
+function createFileIfNotExists(){
+    existsSync(path.join(__dirname, FILENAME)) ? true : writeFileAsync(path.join(__dirname, FILENAME),'');
+}
+createFileIfNotExists();
 
 app.get('/', (request, response) => {
     const statusCode = 200;
