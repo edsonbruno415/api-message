@@ -11,7 +11,7 @@ const FILENAME = 'message.txt';
 let message;
 
 function createFileIfNotExists(){
-    existsSync(path.join(__dirname, FILENAME)) ? true : writeFileAsync(path.join(__dirname, FILENAME),'');
+    existsSync(path.join(__dirname, FILENAME)) ? true : writeFileSync(path.join(__dirname, FILENAME),'');
 }
 createFileIfNotExists();
 
