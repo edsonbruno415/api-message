@@ -2,20 +2,27 @@ const express = require('express');
 const { request, response } = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
-let message = '';
+const path = require('path');
+const util = require('util');
+const { readFile, writeFile } = require('fs');
+const readFileAsync = util.promisify(readFile);
+const writeFileAsync = util.promisify(writeFile);
 
-app.get('/',(request, response)=>{
+const FILENAME = 'message.txt';
+let message;
+
+app.get('/', (request, response) => {
     const statusCode = 200;
     response
-    .status(statusCode)
-    .json({
-        statusCode
-    });
+        .status(statusCode)
+        .json({
+            statusCode
+        });
 });
 
-app.get('/memory_usage',(request, response)=>{
+app.get('/memory_usage', (request, response) => {
     const { heapUsed } = process.memoryUsage();
-    const memoryUsage = Math.round((heapUsed / 1024 / 1024)*100) / 100;
+    const memoryUsage = Math.round((heapUsed / 1024 / 1024) * 100) / 100;
     const memoryUsageString = `${memoryUsage} MB`;
     response.json({
         memoryUsage: {
@@ -26,14 +33,16 @@ app.get('/memory_usage',(request, response)=>{
     })
 });
 
-app.get('/message',(request, response)=>{
-    if(!message){
+app.get('/message', async (request, response) => {
+    const result = await readFileAsync(path.join(__dirname, FILENAME));
+    message = result.toString();
+    if (!message) {
         const statusCode = 419;
         response
-        .status(statusCode)
-        .json({
-            statusCode
-        });
+            .status(statusCode)
+            .json({
+                statusCode
+            });
         return;
     }
     response.json({
@@ -41,19 +50,20 @@ app.get('/message',(request, response)=>{
     })
 });
 
-app.post('/message/:str', (request, response)=>{
+app.post('/message/:str', async (request, response) => {
     const { str } = request.params;
     message = str.toString();
+    await writeFileAsync(path.join(__dirname, FILENAME), str);
     const statusCode = 204;
     response
-    .status(statusCode)
-    .json({
-        statusCode
-    });
+        .status(statusCode)
+        .json({
+            statusCode
+        });
 });
 
-app.listen(port, (error)=>{
-    if(error){
+app.listen(port, (error) => {
+    if (error) {
         throw Error('Error internal server! ', error);
     }
     console.log(`Application is running on http://localhost:${port}`);
