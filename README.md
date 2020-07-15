@@ -5,6 +5,12 @@
 
 Acesse o projeto em: https://api-mensagem.herokuapp.com/
 
+#### Como utilizar
+
+* /memory_usage - retorna as informações de memória utilizada na instância atual.
+* /message - retorna uma mensagem armazenada.
+* /message/<string> - cadastra uma mensagem.
+
 #### Requisitos
 
 * A aplicação deverá ser criada, obrigatoriamente, utilizando Node.js.
