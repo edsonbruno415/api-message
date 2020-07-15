@@ -13,9 +13,9 @@ Acesse o projeto em: https://api-mensagem.herokuapp.com/
 
 #### Requisitos
 
-* :white_check_mark:A aplicação deverá ser criada, obrigatoriamente, utilizando Node.js.
+* :heavy_check_mark: A aplicação deverá ser criada, obrigatoriamente, utilizando Node.js.
 * A aplicação deverá ser hospedada em uma instância EC2 da Amazon Web Services (é possível criar uma gratuitamente)
-* A aplicação deverá ser salva no GitHub.
+* :heavy_check_mark: A aplicação deverá ser salva no GitHub.
 * BÔNUS: Onde possível, usar a sintaxe async/await para tratar as assincronias.
 * A aplicação deverá atender ao protocolo HTTP com as seguintes respostas (dica: Express.js)
   * GET /memory_usage
