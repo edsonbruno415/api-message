@@ -8,10 +8,9 @@ const readFileAsync = util.promisify(readFile);
 const writeFileAsync = util.promisify(writeFile);
 
 const FILENAME = 'message.txt';
-let message;
 
-function createFileIfNotExists(){
-    existsSync(path.join(__dirname, FILENAME)) ? true : writeFileSync(path.join(__dirname, FILENAME),'');
+function createFileIfNotExists() {
+    existsSync(path.join(__dirname, FILENAME)) ? true : writeFileSync(path.join(__dirname, FILENAME), '');
 }
 createFileIfNotExists();
 
@@ -39,7 +38,7 @@ app.get('/memory_usage', (request, response) => {
 
 app.get('/message', async (request, response) => {
     const result = await readFileAsync(path.join(__dirname, FILENAME));
-    message = result.toString();
+    const message = result.toString();
     if (!message) {
         const statusCode = 419;
         response
@@ -56,9 +55,28 @@ app.get('/message', async (request, response) => {
 
 app.post('/message/:str', async (request, response) => {
     const { str } = request.params;
-    message = str.toString();
-    await writeFileAsync(path.join(__dirname, FILENAME), str);
     const statusCode = 204;
+    const isNumber = (str) => !isNaN(parseInt(str));
+
+    if (isNumber(str)) {
+        const num = parseInt(str);
+        if (num === -1) {
+            writeFileSync(path.join(__dirname, FILENAME), '');
+            response
+                .status(statusCode)
+                .json({
+                    statusCode
+                });
+            return;
+        }
+        response
+            .status(200)
+            .json({
+                string: parseInt(str)
+            });
+        return;
+    }
+    await writeFileAsync(path.join(__dirname, FILENAME), str);
     response
         .status(statusCode)
         .json({
