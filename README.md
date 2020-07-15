@@ -9,11 +9,11 @@ Acesse o projeto em: https://api-mensagem.herokuapp.com/
 
 * /memory_usage - retorna as informações de memória utilizada na instância atual.
 * /message - retorna uma mensagem armazenada.
-* /message/<string> - cadastra uma mensagem.
+* /message/\<string\> - cadastra uma mensagem.
 
 #### Requisitos
 
-* A aplicação deverá ser criada, obrigatoriamente, utilizando Node.js.
+* [x] A aplicação deverá ser criada, obrigatoriamente, utilizando Node.js.
 * A aplicação deverá ser hospedada em uma instância EC2 da Amazon Web Services (é possível criar uma gratuitamente)
 * A aplicação deverá ser salva no GitHub.
 * BÔNUS: Onde possível, usar a sintaxe async/await para tratar as assincronias.
