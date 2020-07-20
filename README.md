@@ -7,10 +7,10 @@ Acesse o projeto em: https://api-mensagem.herokuapp.com/
 
 #### Como utilizar
 
-* /memory_usage - retorna as informações de memória utilizada na instância atual.
-* /message - retorna uma mensagem armazenada.
-* /message/\<string\> - cadastra uma mensagem.
-* /message/-1 - excluir mensagem armazenada.
+* GET /memory_usage - retorna as informações de memória utilizada na instância atual.
+* GET /message - retorna uma mensagem armazenada.
+* POST /message/\<string\> - cadastra uma mensagem.
+* POST /message/-1 - excluir mensagem armazenada.
 
 #### Requisitos
 
